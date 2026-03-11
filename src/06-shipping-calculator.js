@@ -23,11 +23,49 @@
  *   - If weight is 0 or negative, return -1
  *   - If orderTotal is negative, return -1
  *
+/**
+ * 📦 ShopSwift Shipping Calculator
+ *
  * @param {number} weight - Package weight in kilograms
  * @param {string} country - Destination country code (e.g., "US", "UK", "IN")
  * @param {number} orderTotal - Total order amount in dollars
  * @returns {number} Shipping cost, 0 for free shipping, or -1 for invalid input
  */
 export function calculateShipping(weight, country, orderTotal) {
-  // Your code here
+  // Invalid input checks
+  if (weight <= 0 || orderTotal < 0) {
+    return -1;
+  }
+
+  let shippingCost;
+
+  if (country === "US") {
+    // Free shipping for domestic orders strictly over $50
+    if (orderTotal > 50) {
+      return 0;
+    }
+
+    if (weight <= 1) {
+      shippingCost = 5;
+    } else if (weight <= 5) {
+      shippingCost = 10;
+    } else {
+      shippingCost = 15;
+    }
+  } else {
+    // Free shipping for international orders strictly over $100
+    if (orderTotal > 100) {
+      return 0;
+    }
+
+    if (weight <= 1) {
+      shippingCost = 15;
+    } else if (weight <= 5) {
+      shippingCost = 25;
+    } else {
+      shippingCost = 40;
+    }
+  }
+
+  return shippingCost;
 }

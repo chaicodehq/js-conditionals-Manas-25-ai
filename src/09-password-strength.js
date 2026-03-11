@@ -25,6 +25,36 @@
  * @param {string} password - The password to evaluate
  * @returns {string} "weak", "medium", "strong", or "very strong"
  */
-export function checkPasswordStrength(password) {
-  // Your code here
+ export function checkPasswordStrength(password) {
+  let strength = 0;
+
+  if (typeof password !== "string") {
+    return "weak";
+  }
+
+  // Criteria 1: At least 8 characters
+  if (password.length >= 8) strength++;
+
+  // Criteria 2: At least one uppercase letter
+  if (/[A-Z]/.test(password)) strength++;
+
+  // Criteria 3: At least one lowercase letter
+  if (/[a-z]/.test(password)) strength++;
+
+  // Criteria 4: At least one number
+  if (/[0-9]/.test(password)) strength++;
+
+  // Criteria 5: At least one special character
+  if (/[!@#$%^&*()_\+\-=\[\]{}|;:,.<>?]/.test(password)) strength++;
+
+  // Determine strength level
+  if (strength <= 1) {
+    return "weak";
+  } else if (strength <= 3) {
+    return "medium";
+  } else if (strength === 4) {
+    return "strong";
+  } else if (strength === 5) {
+    return "very strong";
+  }
 }
